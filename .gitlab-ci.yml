@@ -15,7 +15,7 @@ variables:
   DEPLOY_ICON: ':gitlab:'
 
 .backend: &backend
-  image: 'registry.gitlab.com/prj-risa/ex/builder:ruby-2.5'
+  image: 'registry.gitlab.com/arb-club/arb/builder:ruby-2.5'
   before_script:
     - cd backend && gem update --system && gem install bundler --no-ri --no-rdoc
     - '[ "$USE_BUNDLE_INSTALL" != "true" ] || bundle install --path vendor --retry 3 --jobs 3'

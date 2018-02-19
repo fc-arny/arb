@@ -1,0 +1,61 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
+  "https://github.com/#{repo_name}.git"
+end
+
+gem 'pg'
+gem 'puma'
+gem 'rails', github: 'rails/rails'
+gem 'redis-rails'
+gem 'typhoeus'
+
+gem 'concurrent-ruby'
+
+gem 'sidekiq'
+gem 'sidekiq-failures'
+gem 'sidekiq-status'
+gem 'sinatra', require: false
+
+gem 'awesome_print', require: false
+gem 'colorize'
+gem 'hirb', require: false
+
+group :development, :test do
+  # Тестирование
+  # gem 'rspec-rails'
+  # gem 'rspec_api_documentation'
+
+  # gem 'database_cleaner'
+  # gem 'factory_bot_rails'
+  # gem 'ffaker'
+  # gem 'webmock'
+
+  # gem 'capybara'
+  # gem 'fuubar'
+
+  # Качество кода
+  # gem 'brakeman', require: false
+  # gem 'bullet'
+  # gem 'bundler-audit', require: false
+  # gem 'fasterer', require: false
+  gem 'rubocop', require: false
+  # gem 'simplecov', require: false
+
+  # Инструменты
+  gem 'listen'
+
+  ## Spring
+  gem 'spring', require: false
+  gem 'spring-watcher-listen'
+  # gem 'spring-commands-rspec'
+
+  ## Debug
+  gem 'byebug'
+  gem 'httplog', require: false
+  # gem 'pry-byebug'
+  # gem 'pry-rails'
+end

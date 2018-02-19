@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+require_relative './utils/console'
+
+chdir APP_ROOT do
+  infoblock <<-INFO
+ВНИМАНИЕ: Для запуска приложения необходим ruby + docker + docker-compose.
+
+OSX:
+  1. до 2010 https://docs.docker.com/toolbox/overview/
+  2. 2010+ https://docs.docker.com/docker-for-mac/
+Linux:
+  1. https://docs.docker.com/engine/installation/linux/
+  INFO
+
+  title 'Создаем файлы из примеров'
+  subtitle 'Переменные окружения - .env.local'
+
+  system! 'touch', '.env.local' unless File.exist?('.env.local')
+
+  title 'Собираем образы для разработки...', timeout: 3
+
+  system! 'docker-compose down'
+  system! 'docker-compose build backend'
+  system! 'docker-compose build frontend'
+
+  title 'Запускаем сервисы postgres/redis...', timeout: 3
+  system! 'docker-compose up -d postgres redis'
+
+  title 'Подготавливаем приложения для запуска bundle/yarn/migrate/др.'
+  system! 'docker-compose run --rm backend bundle install'
+  system! 'docker-compose run --rm backend rails db:drop db:create db:migrate db:seed'
+  # system! 'docker-compose run --rm frontend yarn install'
+
+  infoblock <<-INFO
+Приложение успешно установлено.
+
+Для запуска приложения нужно выполнить следующее:
+  `docker-compose up backend`  - запуск backend-приложения (rails)
+  `docker-compose up frontend` - запуск frontend'а приоржения (webpack-dev-server)
+  `docker-compose up sidekiq`  - запуск обработчика очереди сообщений (sidekiq)
+
+  или
+
+  `docker-compose up`
+
+ИНФОРМАЦИЯ:
+   Более подробно про настройку окружения разработчика смотри в файле README.md
+  INFO
+end

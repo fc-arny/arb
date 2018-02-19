@@ -1,0 +1,81 @@
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+    - '**/Gemfile'
+  Exclude:
+    - 'bin/**/*'
+    - 'builds/**/*'
+    - 'config/**/*'
+    - 'db/schema.rb'
+    - 'db/seeds.rb'
+    - 'db/seeds/**/*'
+    - 'db/migrate/**/*'
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+  TargetRubyVersion: 2.5
+
+#################### Style ################################
+Style/AsciiComments:
+  Enabled: false
+
+Style/BracesAroundHashParameters:
+  EnforcedStyle: context_dependent
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/ClassVars:
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Enabled: false
+  SingleLineConditionsOnly: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/GlobalVars:
+  AllowedVariables: [$logger]
+
+Style/TrailingCommaInArguments:
+  Description: 'Checks for trailing comma in argument lists.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-params-comma'
+  Enabled: true
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInLiteral:
+  Description: 'Checks for trailing comma in array and hash literals.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas'
+  Enabled: true
+  EnforcedStyleForMultiline: comma
+
+#################### Metrics ################################
+Metrics/LineLength:
+  Max: 140
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Max: 150
+
+Metrics/ClassLength:
+  Max: 150
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/MethodLength:
+ Max: 50
+
+Metrics/CyclomaticComplexity:
+ Max: 15
+
+Metrics/ParameterLists:
+ CountKeywordArgs: no
+
+Metrics/PerceivedComplexity:
+ Max: 16
+
+#################### Lint ################################

@@ -1,0 +1,38 @@
+version: "3.4"
+
+services:
+  backend:
+    build: ./backend
+    command: bundle exec puma
+    env_file:
+      - .env
+    volumes:
+      - bundle:/bundle
+      - ./backend:/opt/src
+    ports: 
+     - 8080:8080
+
+  deamon:
+    build: ./deamon
+    command: go run main.go
+    volumes:
+      - ./backend:/go/src/gitlab.com/prj-risa/ex
+
+  redis:
+    image: "redis:4-alpine"
+    env_file:
+      - .env
+    volumes:
+       - redis:/var/lib/redis/data
+
+  postgres:
+    image: "postgres:10-alpine"
+    env_file:
+      - .env
+    volumes:
+       - postgres:/var/lib/postgresql/data   
+
+volumes:
+  redis:  
+  postgres:    
+  bundle:  

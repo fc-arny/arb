@@ -1,0 +1,7 @@
+bittrex:
+  pair: 'BTC-WAVES'
+  url: 'https://bittrex.com/api/v1.1/public'
+
+exmo:
+  pair: 'WAVES_BTC'
+  url: 'https://api.exmo.com/v1'  

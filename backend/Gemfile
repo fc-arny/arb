@@ -24,6 +24,9 @@ gem 'awesome_print', require: false
 gem 'colorize'
 gem 'hirb', require: false
 
+# Clients
+gem 'bittrex'
+
 group :development, :test do
   # Тестирование
   # gem 'rspec-rails'

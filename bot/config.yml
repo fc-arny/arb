@@ -12,7 +12,7 @@ strategy:
   options: 
     pair: BTC,WAVE
     exchanges: bittrex,binance
-    cycles: 10000
+    cycles: 10
     min_trade_size: 0.1 # это минимально допустимый размер сделки (если на счету не осталось достаточно валюты, чтобы разместить по maxTradeSize) согласно тому, что продаем/покупаем
     min_trade_relative: 1 # это относительная доходность сделки
     max_trade_size: 0.5 # тот объем, который максимально размещаем, чтобы да, не слить все )

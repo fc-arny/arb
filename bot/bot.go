@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
 	"os"
 
 	"gopkg.in/urfave/cli.v2"
@@ -11,6 +11,15 @@ import (
 )
 
 // "github.com/pdepip/go-binance/binance"
+var config common.Config
+
+// func main() {
+// 	config.LoadFrom("./config.yml")
+
+// 	cstrategy := strategy.Strategy{Config: config}
+// 	cstrategy.Init()
+
+// }
 
 func main() {
 	var config common.Config
@@ -25,26 +34,30 @@ func main() {
 				Email: "arthur.shcheglov@gmail.com",
 			},
 		},
-		Flags: []cli.Flag{
-			&cli.StringFlag{
-				Name:    "config",
-				Aliases: []string{"c"},
-				Usage:   "Load configuration from `FILE.yml`",
-			},
-		},
 		Commands: []*cli.Command{
 			{
 				Name:  "run",
 				Usage: "Run bot with your config",
+				Flags: []cli.Flag{
+					&cli.StringFlag{
+						Name:        "config",
+						Aliases:     []string{"c"},
+						DefaultText: "./config.yml",
+						Usage:       "Load configuration from `FILE.yml`",
+					},
+				},
 				Action: func(c *cli.Context) error {
 					config.LoadFrom(c.String("config"))
 
-					switch config.Strategy.Type {
-					case "pair":
-						fmt.Println("Start PAIR strategy")
-						strategy.Pair(&config)
-						fmt.Println("End PAIR strategy")
-					}
+					cstrategy := strategy.Strategy{Config: config}
+					cstrategy.Init().Run()
+
+					// switch config.Strategy.Type {
+					// case "pair":
+					// 	fmt.Println("Start PAIR strategy")
+					// 	strategy.Pair(&config)
+					// 	fmt.Println("End PAIR strategy")
+					// }
 
 					return nil
 				},
@@ -54,20 +67,3 @@ func main() {
 
 	app.Run(os.Args)
 }
-
-// Bittrex client
-// bittrex := bittrex.New(API_KEY, API_SECRET)
-
-// pair := "BTC-ETH"
-// // os.Getenv("PAIR") ||
-
-// fmt.Println("BITREX START ==========================")
-// bOrderBook, err := bittrex.GetOrderBook(pair, "both")
-// fmt.Println(err, bOrderBook)
-
-// fmt.Println("BITREX END ==========================")
-
-// fmt.Println("EXMO START ==========================")
-// eOrderBook, err := exmo.Request("order_book", exmo.APIParams{"pair": "ETH_BTC"})
-// fmt.Println(err, eOrderBook)
-// fmt.Println("EXMO END ==========================")

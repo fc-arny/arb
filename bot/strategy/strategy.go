@@ -34,7 +34,12 @@ func (s *Strategy) Type() string {
 // Run strategy
 func (s *Strategy) Run() {
 	fmt.Println("#### STRAGEGY #### ")
-	fmt.Println(s.Type())
+	switch s.Type() {
+	case "pair":
+
+		p := PairStrategy{Strategy: *s}
+		p.Start()
+	}
 	fmt.Println("#### STRAGEGY stop #### ")
 }
 
@@ -42,14 +47,14 @@ func (s *Strategy) setupExchanges() {
 	s.Exchanges = make(map[string]exchange.Interface)
 
 	fmt.Println("- setup exchanges")
-	for key := range s.Config.Auth {
+	for key, config := range s.Config.Auth {
 		switch key {
 		case "bittrex":
 			fmt.Println("-- bittrex")
-			s.Exchanges[key] = exchange.BittexAdapter{}
+			s.Exchanges[key] = exchange.BittexAdapter{Config: config}
 		case "binance":
 			fmt.Println("-- binance")
-			s.Exchanges[key] = exchange.BinanceAdapter{}
+			s.Exchanges[key] = exchange.BinanceAdapter{Config: config}
 		default:
 			panic("Wrong exchange - " + key)
 		}

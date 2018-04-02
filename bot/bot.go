@@ -34,30 +34,23 @@ func main() {
 				Email: "arthur.shcheglov@gmail.com",
 			},
 		},
+		Flags: []cli.Flag{
+			&cli.StringFlag{
+				Name:        "config",
+				Aliases:     []string{"c"},
+				DefaultText: "./config.yml",
+				Usage:       "Load configuration from `FILE.yml`",
+			},
+		},
 		Commands: []*cli.Command{
 			{
 				Name:  "run",
 				Usage: "Run bot with your config",
-				Flags: []cli.Flag{
-					&cli.StringFlag{
-						Name:        "config",
-						Aliases:     []string{"c"},
-						DefaultText: "./config.yml",
-						Usage:       "Load configuration from `FILE.yml`",
-					},
-				},
 				Action: func(c *cli.Context) error {
 					config.LoadFrom(c.String("config"))
 
 					cstrategy := strategy.Strategy{Config: config}
 					cstrategy.Init().Run()
-
-					// switch config.Strategy.Type {
-					// case "pair":
-					// 	fmt.Println("Start PAIR strategy")
-					// 	strategy.Pair(&config)
-					// 	fmt.Println("End PAIR strategy")
-					// }
 
 					return nil
 				},

@@ -1,17 +1,34 @@
 package exchange
 
-// Exchange common interface for any Exchange
+// Interface common interface for any Exchange
 type Interface interface {
-	GetOrderBook()
+	GetName() string
+	GetOrderBook(market string) (OrderBook, error)
+	GetBalance(currency string) Balance
 	// CreateOrder() error
-	// 	. getBalance
-	// 3. GetFee
-	// 4. GetWalletStatus
-	// 5. CreateOrder
-	// 6. Cancel
-	// 7. GetOpenOrders
-	// 8. OrderStatus
-	// 9. GetMarket
+	// GetBalance()
+	// GetFee
+	// GetWalletStatus
+	// Cancel
+	// GetOpenOrders
+	// OrderStatus
+	// GetMarket
+}
+
+type OrderBook struct {
+	Bids []Order `json:"bids"`
+	Asks []Order `json:"asks"`
+}
+
+type Order struct {
+	Price    float64 `json:",string"`
+	Quantity float64 `json:",string"`
+}
+
+// Balance of account
+type Balance struct {
+	Currency string  `json:"Currency"`
+	Amount   float64 `json:"Amount"`
 }
 
 // const Items = []{BinanceAdapter, BittexAdapter}

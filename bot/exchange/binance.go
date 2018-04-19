@@ -12,8 +12,14 @@ type BinanceAdapter struct {
 	Config map[string]string
 }
 
+// GetName echange name
 func (b BinanceAdapter) GetName() string {
 	return "Binance"
+}
+
+// GetFee trading fee for transaction
+func (b BinanceAdapter) GetFee() float64 {
+	return 0.1 / 100
 }
 
 // GetOrderBook get

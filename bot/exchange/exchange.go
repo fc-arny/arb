@@ -3,11 +3,11 @@ package exchange
 // Interface common interface for any Exchange
 type Interface interface {
 	GetName() string
+	GetFee() float64
 	GetOrderBook(market string) (OrderBook, error)
 	GetBalance(currency string) Balance
 	// CreateOrder() error
 	// GetBalance()
-	// GetFee
 	// GetWalletStatus
 	// Cancel
 	// GetOpenOrders

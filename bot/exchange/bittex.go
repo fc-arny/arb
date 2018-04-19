@@ -12,8 +12,14 @@ type BittexAdapter struct {
 	Config map[string]string
 }
 
+// GetName echange name
 func (b BittexAdapter) GetName() string {
 	return "Bittrex"
+}
+
+// GetFee trading fee for transaction
+func (b BittexAdapter) GetFee() float64 {
+	return 0.25 / 100
 }
 
 // GetOrderBook order book
